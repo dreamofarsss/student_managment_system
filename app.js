@@ -27,4 +27,5 @@ async function startServer(params){
     //create tables in the database
     require('./models/studentsModel')();
     require('./models/coursesModel')();
+    require('./models/gradesModel')();
 };

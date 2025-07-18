@@ -6,13 +6,15 @@ const createGradesTable = async() => {
             CREATE TABLE IF NOT EXISTS grades (
                 grade_id SERIAL PRIMARY KEY,
                 student_id INT NOT NULL,
-                subject VARCHAR(50) NOT NULL,
+                FOREIGN KEY(student_id) REFERENCES students(student_id),
                 grade INT NOT NULL,
                 created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
             );
         `)
-        console.log(result)
+        console.log('Greades table created!')
     }catch(err){
         console.log(err)
     }
 }
+
+module.exports = createGradesTable;
