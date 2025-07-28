@@ -21,6 +21,7 @@ const connectToPostgres = async() => {
             console.log(`Database ${settings.PG_DATABASE} created!`)
         }else{
             console.log(`Database ${settings.PG_DATABASE} already exists!\nCheck the README.md file for more information.`)
+            process.exit(1)
         }
     }catch(err){
         console.log("Failed to connecet to Postgres", err)

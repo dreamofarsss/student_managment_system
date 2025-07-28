@@ -1,12 +1,11 @@
 const {pgQuery} = require('../config/db')
 
-const createCourese = async() => {
+const createCourse = async() => {
     try{
         const result = await pgQuery(`
             CREATE TABLE IF NOT EXISTS courses (
                 course_id SERIAL PRIMARY KEY,
-                course_name VARCHAR(50) NOT NULL,
-                created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+                course_name VARCHAR(50) NOT NULL
             );
         `)
         console.log('Courses table created!')
@@ -14,5 +13,4 @@ const createCourese = async() => {
         console.log(err)
     }
 }
-
-module.exports = createCourese;
+module.exports = createCourse;

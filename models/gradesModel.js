@@ -2,19 +2,16 @@ const {pgQuery} = require('../config/db')
 
 const createGradesTable = async() => {
     try{
-        const result = await pgQuery(`
-            CREATE TABLE IF NOT EXISTS grades (
+        await pgQuery(`
+            CREATE TABLE IF NOT EXISTS grades(
                 grade_id SERIAL PRIMARY KEY,
-                student_id INT NOT NULL,
-                FOREIGN KEY(student_id) REFERENCES students(student_id),
-                grade INT NOT NULL,
-                created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+                grade DECIMAL(5,2) NOT NULL CHECK(grade >= 0 AND grade <= 100),
+                enrollment_id INT NOT NULL,
+                FOREIGN KEY (enrollment_id) REFERENCES enrollments(enrollment_id) ON DELETE CASCADE
             );
         `)
-        console.log('Greades table created!')
     }catch(err){
         console.log(err)
     }
 }
-
 module.exports = createGradesTable;

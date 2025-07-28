@@ -8,7 +8,6 @@ startServer();
 app.use(express.json())
 app.use('/students', require('./routes/students'));
 app.use('/courses', require('./routes/courses'));
-//app.use('/grades', require('./routes/grades'));
 app.use(require('./middlewares/errorHandler'));
 
 async function startServer(params){
@@ -19,13 +18,17 @@ async function startServer(params){
         app.listen(process.env.PORT || 3000, () => {
             console.log(`Server started on port ${process.env.PORT || 3000}`);
         });
+
+        //create tables in the database
+        await require('./models/coursesModel')();
+        await require('./models/studentsModel')();
+        await require('./models/enrollmentsModel')();
+        await require('./models/gradesModel')();
+        await require('./models/attendanceModel')();
     } catch (err) {
         console.error(`Failed to connect to server: ${err.message}`);
         process.exit(1);
     }
 
-    //create tables in the database
-    require('./models/studentsModel')();
-    require('./models/coursesModel')();
-    require('./models/gradesModel')();
+    
 };
